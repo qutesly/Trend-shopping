@@ -2,6 +2,8 @@ import React from "react";
 import { ProductsType } from "../types";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
+import Link from "next/link";
+import Filter from "./Filter";
 
 // TEMPORARY DATA
 
@@ -48,7 +50,7 @@ const products: ProductsType = [
     sizes: ["s", "m", "l"],
     colors: ["green", "blue", "black"],
     images: {
-      green: "/products/1gr.png",
+      green: "/products/3gr.png",
       blue: "/products/3b.png",
       black: "/products/3bl.png",
     },
@@ -95,7 +97,7 @@ const products: ProductsType = [
     sizes: ["40", "42", "43", "44"],
     colors: ["gray", "white"],
     images: {
-      gray: "/products/1g.png",
+      gray: "/products/6g.png",
       white: "/products/6w.png",
     },
   },
@@ -131,15 +133,28 @@ const products: ProductsType = [
   },
 ];
 
-const ProductsList = () => {
+const ProductsList = ({
+  category,
+  params,
+}: {
+  category: string;
+  params: "homepage" | "products";
+}) => {
   return (
     <div className="w-full">
       <Categories />
+      {params === "products" && <Filter />}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-12 mt-5">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      <Link
+        href={category ? `/products/?category=${category}` : "/products"}
+        className="flex justify-end mt-4 text-gray-500 underline"
+      >
+        View all Products
+      </Link>
     </div>
   );
 };

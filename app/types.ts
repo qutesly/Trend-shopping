@@ -10,13 +10,18 @@ export type ProductType = {
   colors: string[];
   images: Record<string, string>;
 };
-
+export type ProductsType = ProductType[];
 
 export type CategoryType = {
   name: string;
   icon: ReactNode;
   slug: string;
 };
+export type CategoriesType = CategoryType[];
 
-export type CategoriesType = CategoryType[]
-export type ProductsType = ProductType[];
+export type CartItemType = ProductType & {
+  quantity: number;
+  selectedSize: string;
+  selectedColor: string;
+};
+export type CartItemsType = CartItemType[];

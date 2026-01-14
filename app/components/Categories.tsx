@@ -11,8 +11,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import { CategoriesType } from "../types";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const categories: CategoriesType = [
   {
@@ -60,11 +59,14 @@ const categories: CategoriesType = [
 const Categories = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   const selectedCategory = searchParams.get("category");
 
   const handleChange = (value: string | null) => {
-    router.push(`?category=${value}`);
+    const params = new URLSearchParams(searchParams);
+    params.set("category", value || "all");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (
